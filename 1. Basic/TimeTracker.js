@@ -10,3 +10,6 @@
 
 const prompt = require("prompt-sync")();
 
+const getTime = (time) => {
+  const projectName = prompt("What is the name of the Project?");
+};

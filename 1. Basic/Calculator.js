@@ -12,36 +12,35 @@
     10. If no, exit the program
 */
 
-const prompt = require("prompt-sync")()
+const prompt = require("prompt-sync")();
 
 // Global variables
-const operations = ["+", "-", "*", "/"]
+const operations = ["+", "-", "*", "/"];
 
 // 1 Ask the user for input
 const calculator = () => {
-    let input1 = prompt("Welcome to Terminal Calc., Enter your value to Start -> ")
-    // If the output is not number ask again.
-    if (!isNaN(input1)) {
-        while (true) {
-            let operator = prompt("What operation would you like to perform? (+,-,/,*) ")
-            const hasMatch = operator.some(item => operations.includes(item))
-            break
-        }
-        
-        
-    } else if (isNaN(input1)) {
-        while (true) {
-            input1 = prompt("Enter a valid number value.")
-            isNaN(input1)
-            let note = prompt("Do you want to continue? (y/n) ")
-        }
-              
-        return input1
+  let input1 = prompt(
+    "Welcome to Terminal Calc., Enter your value to Start -> ",
+  );
+  // If the output is not number ask again.
+  if (!isNaN(input1)) {
+    while (true) {
+      let operator = prompt(
+        "What operation would you like to perform? (+,-,/,*) ",
+      );
+      const hasMatch = operator.some((item) => operations.includes(item));
+      break;
     }
-}
+  } else if (isNaN(input1)) {
+    while (true) {
+      input1 = prompt("Enter a valid number value.");
+      isNaN(input1);
+      let note = prompt("Do you want to continue? (y/n) ");
+    }
 
-const output = calculator()
+    return input1;
+  }
+};
+
+const output = calculator();
 console.log("The output is: ", output);
-
-
-

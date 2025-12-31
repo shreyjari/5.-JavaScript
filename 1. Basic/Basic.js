@@ -1,6 +1,6 @@
-let name = "Shrey"
-let age = 27
-let isLoggedIn = true
+let name = "Shrey";
+let age = 27;
+let isLoggedIn = true;
 
 /* # Premitive data types
  number => 2 to power 53
@@ -16,4 +16,4 @@ let isLoggedIn = true
 
 */
 
-console.log(typeof name)
+console.log(typeof name);

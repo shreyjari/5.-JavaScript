@@ -1,21 +1,35 @@
 /*
 # Things to consider when making a time tracker
-1. Controls: Ask user to start, pause, stop & finish day
-2. For each New Activity ask user to:
-    - Name of activity
-    - Estimate to complete (in mins)
-    - Select a List of projects
-3. Save the response in json.
+1. When user types anything ask user to Start? 
+    If they have active timer ask to Pause/Stop (Finish day)
+2. Save the response in a variable.
 */
+
+const { startTransition } = require("react");
 
 const prompt = require("prompt-sync")();
 let data = {};
 
-const getTime = () => {
-  const projectName = prompt("What is the name of the Project?");
+const calculateTime = () => {
+  const projectName = prompt("Enter Project name? ");
+  let startTimer = prompt("Do you want to start tracking time? (y) ");
 
-  return projectName;
+  if (startTimer == "y") {
+    const startTimeStamp = Date.now();
+    let stopTimer = prompt("Do you want to stop the timer? (y)");
+
+    if (stopTimer == "y") {
+      const stopTimer = Date.now();
+      let trackedDuration = Math.round(
+        (stopTimer - startTimeStamp) / 1000 / 60,
+        2
+      );
+      return trackedDuration;
+    }
+  } else {
+    console.log("Invalid input.");
+  }
 };
 
-const output = getTime();
-console.log(output);
+const output = calculateTime();
+console.log("Your session was (in minutes): ", output);

@@ -11,5 +11,8 @@
   },
   "dependencies": {
     "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.2"
   }
 }

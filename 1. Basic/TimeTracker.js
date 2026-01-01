@@ -5,8 +5,6 @@
 2. Save the response in a variable.
 */
 
-const { startTransition } = require("react");
-
 const prompt = require("prompt-sync")();
 let data = {};
 
@@ -22,7 +20,7 @@ const calculateTime = () => {
       const stopTimer = Date.now();
       let trackedDuration = Math.round(
         (stopTimer - startTimeStamp) / 1000 / 60,
-        2
+        1
       );
       return trackedDuration;
     }
@@ -32,4 +30,4 @@ const calculateTime = () => {
 };
 
 const output = calculateTime();
-console.log("Your session was (in minutes): ", output);
+console.log("Your session lasted (in minutes): ", output);

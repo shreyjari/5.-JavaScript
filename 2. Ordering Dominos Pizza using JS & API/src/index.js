@@ -1,5 +1,3 @@
-// latest version of node has fetch built-in
-
 // setup object for ordertype
 const orderType = {
   Delivery: "delivery",
@@ -8,6 +6,10 @@ const orderType = {
 
 const API_URL = "https://order.dominos.ca/power";
 
+// --------------- Code logic starts ---------------
+
+// Based on the output of the api it looks like the system by default returns output based on the distance (closest store earliest).
+// Get the nearest store based on the address information
 async function getStoreNearAddress(
   orderType,
   cityStateZip,
@@ -22,7 +24,6 @@ async function getStoreNearAddress(
   return json;
 }
 
-// Based on the output of the api it looks like the system by default returns output based on the distance (closest store earliest).
 getStoreNearAddress(
   orderType.Delivery,
   "Toronto, Ontario, M9A4X8",
@@ -32,6 +33,7 @@ getStoreNearAddress(
   console.log("# Nearest Store: ", json.Stores[0]);
 });
 
+// Get the Store information based on the StoreID
 async function getStoreInformation(storeID) {
   const response = await fetch(`${API_URL}/store/${storeID}/profile`);
   const json = await response.json();
@@ -39,9 +41,10 @@ async function getStoreInformation(storeID) {
 }
 
 getStoreInformation("10335").then((json) => {
-  console.log("# Store: ", json);
+  console.log("# Store Information: ", json);
 });
 
+// Get the menu information from the store
 async function getStoreMenu(storeID) {
   const response = await fetch(
     `${API_URL}/store/${storeID}/menu?lang=en&structured=true`
@@ -52,4 +55,17 @@ async function getStoreMenu(storeID) {
 
 getStoreMenu("10335").then((json) => {
   console.log("# Menu information: ", json);
+});
+
+// Get the coupon information
+async function getCouponInformation(couponID) {
+  const response =
+    await fetch(`${API_URL}/store/10335/coupon/${couponID}?lang=en
+`);
+  const json = await response.json();
+  return json;
+}
+
+getCouponInformation("8375").then((json) => {
+  console.log("# Coupon information: ", json);
 });

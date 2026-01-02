@@ -27,4 +27,17 @@ getStoreNearAddress(
   orderType.Delivery,
   "Toronto, Ontario, M9A4X8",
   "24 Mabelle Avenue"
-).then((json) => console.log(json));
+).then((json) => {
+  // Output for the closest store
+  console.log(json.Stores[0]);
+});
+
+async function getStoreInformation(storeID) {
+  const response = await fetch(`${API_URL}/store/${storeID}/profile`);
+  const json = await response.json();
+  return json;
+}
+
+getStoreInformation("10335").then((json) => {
+  console.log(json);
+});

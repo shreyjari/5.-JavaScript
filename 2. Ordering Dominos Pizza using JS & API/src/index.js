@@ -29,7 +29,7 @@ getStoreNearAddress(
   "24 Mabelle Avenue"
 ).then((json) => {
   // Output for the closest store
-  console.log(json.Stores[0]);
+  console.log("# Nearest Store: ", json.Stores[0]);
 });
 
 async function getStoreInformation(storeID) {
@@ -39,5 +39,17 @@ async function getStoreInformation(storeID) {
 }
 
 getStoreInformation("10335").then((json) => {
-  console.log(json);
+  console.log("# Store: ", json);
+});
+
+async function getStoreMenu(storeID) {
+  const response = await fetch(
+    `${API_URL}/store/${storeID}/menu?lang=en&structured=true`
+  );
+  const json = await response.json();
+  return json;
+}
+
+getStoreMenu("10335").then((json) => {
+  console.log("# Menu information: ", json);
 });

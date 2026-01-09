@@ -57,15 +57,96 @@ getStoreMenu("10335").then((json) => {
   console.log("# Menu information: ", json);
 });
 
+// All Available coupons
+async function getAllCoupons(storeID) {
+  const getMenu = await getStoreMenu(storeID);
+  return getMenu.Coupons;
+}
+
+getAllCoupons("10335").then((json) => {
+  console.log("# All available coupons: ", json);
+});
+
 // Get the coupon information
-async function getCouponInformation(couponID) {
+async function getCouponInformation(storeID, couponID) {
   const response =
-    await fetch(`${API_URL}/store/10335/coupon/${couponID}?lang=en
+    await fetch(`${API_URL}/store/${storeID}/coupon/${couponID}?lang=en
 `);
   const json = await response.json();
   return json;
 }
 
-getCouponInformation("8375").then((json) => {
+getCouponInformation("10335", "8375").then((json) => {
   console.log("# Coupon information: ", json);
+});
+
+// Validate the order
+async function validateOrder(order) {
+  const response = await fetch(
+    "https://order.dominos.ca/power/validate-order",
+    {
+      headers: {
+        "content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify(order),
+      method: "POST",
+    }
+  );
+  return response.json();
+}
+
+const order = {
+  Order: {
+    Address: {
+      City: "ETOBICOKE",
+      Region: "ON",
+      Coordinates: { Latitude: 43.59603, Longitude: -79.52566 },
+      PostalCode: "M8W1N1",
+      StoreID: "10547",
+    },
+    Coupons: [],
+    CustomerID: "",
+    Email: "",
+    Extension: "",
+    FirstName: "",
+    LastName: "",
+    LanguageCode: "en",
+    OrderChannel: "OLO",
+    OrderID: "",
+    OrderMethod: "Web",
+    OrderTaker: null,
+    Payments: [],
+    Phone: "",
+    PhonePrefix: "",
+    Products: [{ Code: "B2PCLAVA", Qty: 1, ID: 1, isNew: true, Options: {} }],
+    ServiceMethod: "Carryout",
+    SourceOrganizationURI: "order.dominos.com",
+    StoreID: "10547",
+    Tags: {},
+    Version: "1.0",
+    NoCombine: true,
+    Partners: {},
+    HotspotsLite: false,
+    OrderInfoCollection: [],
+  },
+};
+
+validateOrder(order).then((json) => {
+  console.log("Validate order result ", json);
+});
+
+// Price the order
+async function getOrderPrice(order) {
+  const response = await fetch("https://order.dominos.ca/power/price-order", {
+    headers: {
+      "content-type": "application/json; charset=UTF-8",
+    },
+    body: JSON.stringify(order),
+    method: "POST",
+  });
+  return response.json();
+}
+
+getOrderPrice(order).then((json) => {
+  console.log("# Order Price: ", json);
 });

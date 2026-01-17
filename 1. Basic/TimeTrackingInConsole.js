@@ -38,22 +38,34 @@ const url = {
   prod: "go",
 };
 
-const homeUrl = "https://dev2.ptaginc.com/dashboards/timesheets";
-const checkPendingTimeEntry = prompt("Is it a In-progress time entry? (y/n) ");
-const projectName = prompt("What is the name of your project? ");
-const projectId = prompt("What is the PTAG FM Project ID? ");
-const jobName = prompt("What is the name of your job? ");
-const jobId = prompt("What is your Job ID? ");
-const personId = 1;
 const apikey = "6b246f05d43baffef7bf1c50";
 const path =
-  "C:UsersShreyJariwalaOneDrive - PTAG Inc (1)DesktopLearning\1. JavaScript\5.-JavaScriptTimeEntries.json";
-const jsonFilePath = path.replace(/\\/ / g, "\\");
+  "C:UsersShreyJariwalaOneDrive - PTAG Inc (1)DesktopLearning/1. JavaScript/5.-JavaScriptTimeEntries.json";
 
-function fillTime() {
+const fillTime = () => {
   /* 
-    Check if Time entry is New/In-progress:
-    New: update the json file by adding a new row.
-    In-Progress: look for the latest record & make update
-    */
-}
+  Check if Time entry is New/In-progress:
+  New: update the json file by adding a new row.
+  In-Progress: look for the latest record & make update
+  */
+  const homeUrl = "https://dev2.ptaginc.com/dashboards/timesheets";
+  const checkPendingTimeEntry = prompt(
+    "Is it a In-progress time entry? (y/n) ",
+  );
+  const projectName = prompt("What is the name of your project? ");
+  const projectId = prompt("What is the PTAG FM Project ID? ");
+  const jobName = prompt("What is the name of your job? ");
+  const jobId = prompt("What is your Job ID? ");
+  const personId = 1;
+  const stratTimer = prompt("Do you want to start recording? (y/n)");
+  if (stratTimer.toLowerCase() == "y" || stratTimer.toLowerCase() == "yes") {
+    const startTimeStamp = Date.now();
+    console.log("Start time is: " + startTimeStamp);
+    return startTimeStamp;
+  } else {
+    console.log("User does not want to record time.");
+  }
+};
+
+const test = fillTime();
+console.log(test);

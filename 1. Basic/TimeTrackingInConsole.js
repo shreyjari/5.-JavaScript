@@ -29,6 +29,15 @@ Then it will check if the new timesheet has been updated using PTAG FM Timesheet
 [ ] Section 3: Schedule Automation using Windows Task Scheduler so that the sript runs at set time or triggers. 
 */
 
+require("dotenv").config();
+
+if (!process.env.DEV2_API_KEY) {
+  console.log("API Key not set in .env file");
+  process.exit(1);
+} else {
+  console.log("Here's the API KEY: ", process.env.DEV2_API_KEY);
+}
+
 const prompt = require("prompt-sync")();
 
 const url = {
@@ -38,7 +47,6 @@ const url = {
   prod: "go",
 };
 
-const apikey = "6b246f05d43baffef7bf1c50";
 const path =
   "C:UsersShreyJariwalaOneDrive - PTAG Inc (1)DesktopLearning/1. JavaScript/5.-JavaScriptTimeEntries.json";
 

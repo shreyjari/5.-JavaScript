@@ -6,14 +6,14 @@ Then it will check if the new timesheet has been updated using PTAG FM Timesheet
 
 [ ] Install all necessary dependencies
 [ ] Section 1: Collecting Time 
-    [ ] Top level would be global variables 
-    [ ] Check if the user is inquiring about a pending Time entry?
-    [ ] Otherwise Basic Timesheet information setup 
-    [ ] Username & ID
-    [ ] Project name & ID
-    [ ] Job name & ID
-    [ ] Start Date Time stamp: extract Date & extract Time
-    [ ] Write to the json file 
+    [x] Top level would be global variables 
+    [x] Check if the user is inquiring about a pending Time entry?
+    [x] Otherwise Basic Timesheet information setup 
+    [x] Username & ID
+    [x] Project name & ID
+    [x] Job name & ID
+    [x] Start Date Time stamp: extract Date & extract Time
+    [x] Write to the json file 
     [ ] Run Section 2. 
 [ ] Section 2: Post Time entries to PTAG FM
     [ ] Using browser automation, open https://go.ptaginc.com/login

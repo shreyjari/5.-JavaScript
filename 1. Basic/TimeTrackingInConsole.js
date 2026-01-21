@@ -28,7 +28,8 @@ Then it will check if the new timesheet has been updated using PTAG FM Timesheet
     [ ] Update the json file based on the date & status to complete 
 [ ] Section 3: Schedule Automation using Windows Task Scheduler so that the sript runs at set time or triggers. 
 */
-
+const fs = require("fs");
+const { json } = require("stream/consumers");
 require("dotenv").config();
 const apiKeys = JSON.parse(process.env.API_KEYS);
 if (!apiKeys) {
@@ -72,6 +73,9 @@ const fillTime = () => {
 
   // What I want to do is create a template json object to store the startTimeStamp, endTimeStamp & duration
   const timeEntryJson = {
+    projectName: projectName,
+    jobName: jobName,
+    personId: personId,
     startTimeStamp: null, // hh:mm:ss
     endTimeStamp: null, // hh:mm:ss
     duration: null, // hh
@@ -90,6 +94,32 @@ const fillTime = () => {
   } else {
     console.log("User does not want to record time.");
   }
+
+  // My arrow function that would bring the json data into our current instance:
+  const appendTimeEntries = (entry) => {
+    // bring the file
+    const file = "TimeEntries.json";
+    let logs = [];
+
+    // Check if the file exists
+    if (fs.existsSync(file)) {
+      try {
+        logs = JSON.parse(fs.readFileSync(file, "utf-8"));
+        if (!Array.isArray(logs)) {
+          logs = [];
+        }
+      } catch {
+        logs = []; // corrupted file fallback
+      }
+    }
+
+    // Add the new entry
+    logs.push(entry);
+
+    // Save back to file
+    fs.writeFileSync(file, JSON.stringify(logs, null, 2));
+  };
+
   const endTimer = prompt("Do you want to end recording? (y/n)");
   if (endTimer.toLowerCase() == "y" || endTimer.toLowerCase() == "yes") {
     endTimeStamp = new Date(Date.now());
@@ -107,6 +137,7 @@ const fillTime = () => {
 
     currentEntry.entryDate = endTimeStamp.toISOString().split("T")[0];
 
+    appendTimeEntries(currentEntry);
     return currentEntry;
   } else {
     console.log("User does not want to stop recording.");

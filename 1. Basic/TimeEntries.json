@@ -1,0 +1,32 @@
+[
+  {
+    "startTimeStamp": "22:08",
+    "endTimeStamp": "22:08",
+    "duration": 0.000014166666666666666,
+    "entryDate": "2026-01-21"
+  },
+  {
+    "startTimeStamp": "22:08",
+    "endTimeStamp": "22:08",
+    "duration": 0.00007833333333333332,
+    "entryDate": "2026-01-21"
+  },
+  {
+    "projectName": "",
+    "jobName": "",
+    "personId": 1,
+    "startTimeStamp": "22:10",
+    "endTimeStamp": "22:10",
+    "duration": -0.0001366666666666667,
+    "entryDate": "2026-01-21"
+  },
+  {
+    "projectName": "Systems",
+    "jobName": "PTAG-Integration",
+    "personId": 1,
+    "startTimeStamp": "22:11",
+    "endTimeStamp": "22:11",
+    "duration": -0.00006805555555555555,
+    "entryDate": "2026-01-21"
+  }
+]

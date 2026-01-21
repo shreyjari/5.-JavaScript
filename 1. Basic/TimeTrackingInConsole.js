@@ -77,22 +77,25 @@ const fillTime = () => {
     duration: null,
   };
 
+  let currentEntry = { ...timeEntryJson };
+
   if (stratTimer.toLowerCase() == "y" || stratTimer.toLowerCase() == "yes") {
-    startTimeStamp = parseFloat(Date.now());
-    console.log("Start time is: " + startTimeStamp);
+    currentEntry.startTimeStamp = parseFloat(Date.now());
+    console.log("Start time is: " + currentEntry.startTimeStamp);
   } else {
     console.log("User does not want to record time.");
   }
   const endTimer = prompt("Do you want to end recording? (y/n)");
   if (endTimer.toLowerCase() == "y" || endTimer.toLowerCase() == "yes") {
-    endTimeStamp = parseInt(Date.now());
-    console.log("End time is: " + endTimeStamp);
+    currentEntry.endTimeStamp = parseInt(Date.now());
+    console.log("End time is: " + currentEntry.endTimeStamp);
 
-    const duration = (endTimeStamp - startTimeStamp) / 1000;
-    console.log("The session lasted for: ", duration);
-    console.log("Today's session date: ", Date(endTimeStamp));
+    currentEntry.duration =
+      (currentEntry.endTimeStamp - currentEntry.startTimeStamp) / 1000;
+    console.log("The session lasted for: ", currentEntry.duration);
+    console.log("Today's session date: ", Date(currentEntry.endTimeStamp));
 
-    return duration;
+    return currentEntry;
   } else {
     console.log("User does not want to stop recording.");
   }

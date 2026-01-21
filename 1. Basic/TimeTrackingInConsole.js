@@ -30,12 +30,12 @@ Then it will check if the new timesheet has been updated using PTAG FM Timesheet
 */
 
 require("dotenv").config();
-
-if (!process.env.DEV2_API_KEY) {
+const apiKeys = JSON.parse(process.env.API_KEYS);
+if (!apiKeys) {
   console.log("API Key not set in .env file");
   process.exit(1);
 } else {
-  console.log("Here's the API KEY: ", process.env.DEV2_API_KEY);
+  console.log("Here's the API KEY: ", apiKeys.dev2);
 }
 
 const prompt = require("prompt-sync")();

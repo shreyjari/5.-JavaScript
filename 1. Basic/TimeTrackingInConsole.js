@@ -72,28 +72,40 @@ const fillTime = () => {
 
   // What I want to do is create a template json object to store the startTimeStamp, endTimeStamp & duration
   const timeEntryJson = {
-    startTimeStamp: null,
-    endTimeStamp: null,
-    duration: null,
+    startTimeStamp: null, // hh:mm:ss
+    endTimeStamp: null, // hh:mm:ss
+    duration: null, // hh
+    entryDate: null, // date string
   };
 
   let currentEntry = { ...timeEntryJson };
 
   if (stratTimer.toLowerCase() == "y" || stratTimer.toLowerCase() == "yes") {
-    currentEntry.startTimeStamp = parseFloat(Date.now());
-    console.log("Start time is: " + currentEntry.startTimeStamp);
+    startTimeStamp = new Date(Date.now());
+    currentEntry.startTimeStamp = startTimeStamp.toLocaleTimeString("en-CA", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
   } else {
     console.log("User does not want to record time.");
   }
   const endTimer = prompt("Do you want to end recording? (y/n)");
   if (endTimer.toLowerCase() == "y" || endTimer.toLowerCase() == "yes") {
-    currentEntry.endTimeStamp = parseInt(Date.now());
-    console.log("End time is: " + currentEntry.endTimeStamp);
+    endTimeStamp = new Date(Date.now());
+    currentEntry.endTimeStamp = endTimeStamp.toLocaleTimeString("en-CA", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
 
     currentEntry.duration =
-      (currentEntry.endTimeStamp - currentEntry.startTimeStamp) / 1000;
-    console.log("The session lasted for: ", currentEntry.duration);
-    console.log("Today's session date: ", Date(currentEntry.endTimeStamp));
+      (endTimeStamp.getMilliseconds() - startTimeStamp.getMilliseconds()) /
+      1000 /
+      60 /
+      60;
+
+    currentEntry.entryDate = endTimeStamp.toISOString().split("T")[0];
 
     return currentEntry;
   } else {

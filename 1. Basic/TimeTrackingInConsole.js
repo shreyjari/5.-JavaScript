@@ -66,12 +66,35 @@ const fillTime = () => {
   const jobId = prompt("What is your Job ID? ");
   const personId = 1;
   const stratTimer = prompt("Do you want to start recording? (y/n)");
+
+  let startTimeStamp;
+  let endTimeStamp;
+
+  // What I want to do is create a template json object to store the startTimeStamp, endTimeStamp & duration
+  const timeEntryJson = {
+    startTimeStamp: null,
+    endTimeStamp: null,
+    duration: null,
+  };
+
   if (stratTimer.toLowerCase() == "y" || stratTimer.toLowerCase() == "yes") {
-    const startTimeStamp = Date.now();
+    startTimeStamp = parseFloat(Date.now());
     console.log("Start time is: " + startTimeStamp);
-    return startTimeStamp;
   } else {
     console.log("User does not want to record time.");
+  }
+  const endTimer = prompt("Do you want to end recording? (y/n)");
+  if (endTimer.toLowerCase() == "y" || endTimer.toLowerCase() == "yes") {
+    endTimeStamp = parseInt(Date.now());
+    console.log("End time is: " + endTimeStamp);
+
+    const duration = (endTimeStamp - startTimeStamp) / 1000;
+    console.log("The session lasted for: ", duration);
+    console.log("Today's session date: ", Date(endTimeStamp));
+
+    return duration;
+  } else {
+    console.log("User does not want to stop recording.");
   }
 };
 
